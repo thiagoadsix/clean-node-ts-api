@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-export default {
+const config = {
   // The root dir of your project
   roots: ['<rootDir>/src'],
   // An array of glob patterns indicating a set of files for which coverage information should be collected
@@ -19,3 +19,5 @@ export default {
   // The test environment that will be used for testing
   testEnvironment: 'jest-environment-node'
 }
+
+module.exports = config
