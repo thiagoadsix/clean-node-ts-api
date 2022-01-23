@@ -37,10 +37,8 @@ export class SignUpController implements Controller {
         return badRequest(new InvalidParamError('email'))
       }
 
-      this.addAccount.add({ name, email, password })
-
       return {
-        body: undefined,
+        body: this.addAccount.add({ name, email, password }),
         statusCode: 200
       }
     } catch (error) {
