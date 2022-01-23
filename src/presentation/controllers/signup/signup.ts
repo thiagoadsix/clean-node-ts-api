@@ -5,8 +5,12 @@ import {
   HttpRequest,
   HttpResponse
 } from './signup-protocols'
+import {
+  badRequest,
+  serverError,
+  ok
+} from '../../helpers'
 import { MissingParamError, InvalidParamError } from '../../errors'
-import { badRequest, serverError, ok } from '../../helpers/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
