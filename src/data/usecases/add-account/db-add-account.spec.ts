@@ -96,4 +96,21 @@ describe('DbAddAccount Usecase', () => {
       password: 'hashed_password'
     })
   })
+
+  test('should throw if AddAccountRepository throws', async () => {
+    const { sut, addAccountRepositoryStub } = makeSut()
+    // Dependency is returning a exception
+    jest.spyOn(addAccountRepositoryStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+
+    const accountData = {
+      name: 'name',
+      email: 'email@example.com',
+      password: 'password'
+    }
+
+    // Remove the await here
+    const promise = sut.add(accountData)
+    // To catch the error here
+    await expect(promise).rejects.toThrow()
+  })
 })
