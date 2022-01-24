@@ -19,5 +19,7 @@ export default {
     '.+\\.ts$': 'ts-jest'
   },
   // The test environment that will be used for testing
-  testEnvironment: 'node'
+  testEnvironment: 'node',
+  // To run MongoDB in memory
+  preset: '@shelf/jest-mongodb'
 }
