@@ -43,7 +43,7 @@ export class SignUpController implements Controller {
 
       return ok(await this.addAccount.add({ name, email, password }))
     } catch (error) {
-      return serverError()
+      return serverError(error)
     }
   }
 }
