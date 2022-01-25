@@ -3,14 +3,17 @@ import {
   HttpRequest,
   HttpResponse
 } from '../../presentation/protocols'
+import { LogErrorRepository } from '../../data/protocols/log-error-repository'
 
 // We are using composition instead heritage
 export class LogControllerDecorator implements Controller {
   // Who you want to decorate?
   constructor (
-    private readonly controller: Controller
+    private readonly controller: Controller,
+    private readonly logErrorRepository: LogErrorRepository
   ) {
     this.controller = controller
+    this.logErrorRepository = logErrorRepository
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -20,7 +23,10 @@ export class LogControllerDecorator implements Controller {
 
     console.log('🤖 Request', httpRequest)
 
-    httpResponse.statusCode === 500 && console.error('💥 Server error', { body: httpResponse.body })
+    if (httpResponse.statusCode === 500) {
+      console.error('💥 Server error', { body: httpResponse.body })
+      await this.logErrorRepository.log(httpResponse.body.stack)
+    }
 
     httpResponse.statusCode === 200 && console.info('💎 Response', { body: httpResponse.body })
 
