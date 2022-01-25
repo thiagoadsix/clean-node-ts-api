@@ -7,6 +7,7 @@
     "start": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:ci": "npm test -- --coverage",
+    "test:clear": "jest --clearCache",
     "test:staged": "npm test -- --findRelatedTests",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.ts",
