@@ -1,4 +1,4 @@
-import { MissingParamError } from '../../errors'
+import { InvalidParamError, MissingParamError } from '../../errors'
 import { badRequest } from '../../helpers'
 import {
   Controller,
@@ -25,7 +25,9 @@ export class LoginController implements Controller {
       return badRequest(new MissingParamError('password'))
     }
 
-    this.emailValidator.isValid(email)
+    if (!this.emailValidator.isValid(email)) {
+      return badRequest(new InvalidParamError('email'))
+    }
 
     return {
       statusCode: 200,
