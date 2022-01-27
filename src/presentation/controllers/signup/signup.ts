@@ -11,7 +11,7 @@ import {
   serverError,
   ok
 } from '../../helpers'
-import { MissingParamError, InvalidParamError } from '../../errors'
+import { InvalidParamError } from '../../errors'
 
 export class SignUpController implements Controller {
   constructor (
@@ -33,14 +33,6 @@ export class SignUpController implements Controller {
       }
 
       const { name, email, password, passwordConfirmation } = httpRequest.body
-
-      const requiredFields = ['email', 'name', 'password', 'passwordConfirmation']
-
-      for (const field of requiredFields) {
-        if (!(httpRequest.body[field])) {
-          return badRequest(new MissingParamError(field))
-        }
-      }
 
       if (password !== passwordConfirmation) {
         return badRequest(new InvalidParamError('passwordConfirmation'))
