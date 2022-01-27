@@ -6,6 +6,7 @@ import {
 } from './login-protocols'
 import {
   badRequest,
+  ok,
   serverError,
   unauthorized
 } from '../../helpers'
@@ -129,5 +130,11 @@ describe('Login Controller', () => {
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const httpResponse: HttpResponse = await sut.handle(makeFakeLoginRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('should return 200 if valid credentials ar provided', async () => {
+    const { sut } = makeSut()
+    const httpResponse: HttpResponse = await sut.handle(makeFakeLoginRequest())
+    expect(httpResponse).toEqual(ok({ accessToken: 'token' }))
   })
 })
