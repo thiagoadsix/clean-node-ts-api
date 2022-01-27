@@ -8,6 +8,9 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/no-misused-promises": "off",
-    "@typescript-eslint/no-floating-promises": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/method-signature-style": "off",
+    "@typescript-eslint/return-await": "off",
+    "node/no-path-concat": "off"
   }
 }
