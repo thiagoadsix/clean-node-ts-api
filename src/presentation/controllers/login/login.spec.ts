@@ -1,8 +1,15 @@
-import { HttpRequest, HttpResponse } from '../../protocols'
-import { Authentication } from '../../../domain/usecases/authentication'
-import { badRequest, serverError, unauthorized } from '../../helpers'
+import {
+  Authentication,
+  EmailValidator,
+  HttpRequest,
+  HttpResponse
+} from './login-protocols'
+import {
+  badRequest,
+  serverError,
+  unauthorized
+} from '../../helpers'
 import { InvalidParamError, MissingParamError } from '../../errors'
-import { EmailValidator } from '../../protocols/email-validator'
 import { LoginController } from './login'
 
 interface MakeSutTypes {
