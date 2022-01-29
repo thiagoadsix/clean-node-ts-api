@@ -2,7 +2,8 @@ import {
   Authentication,
   Validation,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
+  AuthenticationModel
 } from './login-protocols'
 import {
   badRequest,
@@ -31,7 +32,7 @@ const makeSut = (): MakeSutTypes => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (email: string, password: string): Promise<string> {
+    async auth (authentication: AuthenticationModel): Promise<string> {
       return await new Promise<string>((resolve) => resolve('token'))
     }
   }
@@ -61,7 +62,7 @@ describe('Login Controller', () => {
     const { sut, authenticationStub } = makeSut()
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeFakeLoginRequest())
-    expect(authSpy).toHaveBeenCalledWith('email@example.com', 'password')
+    expect(authSpy).toHaveBeenCalledWith({ email: 'email@example.com', password: 'password' })
   })
 
   test('should return 401 if invalid credentials are provided', async () => {
