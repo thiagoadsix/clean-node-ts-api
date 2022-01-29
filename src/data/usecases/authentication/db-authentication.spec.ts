@@ -128,4 +128,10 @@ describe('DbAuthentication Usecase', () => {
     const error = sut.auth(makeFakeRequest())
     await expect(error).rejects.toThrow()
   })
+
+  test('should return respective token from TokenGenerator', async () => {
+    const { sut } = makeSut()
+    const accessToken = await sut.auth(makeFakeRequest())
+    expect(accessToken).toBe('token')
+  })
 })
