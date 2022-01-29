@@ -13,9 +13,9 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     return AccountMapper.accountMongoToAccountModel(account)
   }
 
-  async loadByEmail (email: string): Promise<AccountModel> {
+  async loadByEmail (email: string): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({ email })
-    return AccountMapper.accountMongoToAccountModel(account)
+    return account && AccountMapper.accountMongoToAccountModel(account)
   }
 }
