@@ -4,7 +4,7 @@ import {
   HttpRequest,
   HttpResponse,
   Validation
-} from './signup-protocols'
+} from './signup-controller-protocols'
 import {
   badRequest,
   serverError,

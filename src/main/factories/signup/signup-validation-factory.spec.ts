@@ -1,9 +1,10 @@
 import {
   ValidationComposite,
   EmailValidation,
-  RequiredFieldValidation
+  RequiredFieldValidation,
+  CompareFieldsValidation
 } from '../../../presentation/helpers/validators'
-import { makeLoginValidation } from './login-validation'
+import { makeSignupValidationFactory } from './signup-validation-factory'
 import { EmailValidator } from '../../../presentation/protocols/email-validator'
 import { Validation } from '../../../presentation/protocols/validation'
 
@@ -19,14 +20,16 @@ const makeEmailValidator = (): EmailValidator => {
   return new EmailValidatorStub()
 }
 
-describe('Login Validation Factory', () => {
+describe('SignUp Validation Factory', () => {
   test('should call ValidationComposite with all validations', () => {
-    makeLoginValidation()
+    makeSignupValidationFactory()
     const validations: Validation[] = []
 
-    for (const field of ['email', 'password']) {
+    for (const field of ['name', 'email', 'password', 'passwordConfirmation']) {
       validations.push(new RequiredFieldValidation(field))
     }
+
+    validations.push(new CompareFieldsValidation('password', 'passwordConfirmation'))
 
     validations.push(new EmailValidation('email', makeEmailValidator()))
 

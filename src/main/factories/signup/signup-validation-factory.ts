@@ -7,7 +7,7 @@ import {
 import { Validation } from '../../../presentation/protocols/validation'
 import { EmailValidatorAdapter } from '../../../utils/email-validator-adapter'
 
-export const makeSignupValidation = (): ValidationComposite => {
+export const makeSignupValidationFactory = (): ValidationComposite => {
   const validations: Validation[] = []
 
   for (const field of ['name', 'email', 'password', 'passwordConfirmation']) {

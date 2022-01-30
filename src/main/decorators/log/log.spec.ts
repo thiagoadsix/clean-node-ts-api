@@ -2,11 +2,11 @@ import {
   Controller,
   HttpRequest,
   HttpResponse
-} from '../../presentation/protocols'
-import { ok, serverError } from '../../presentation/helpers'
-import { LogErrorRepository } from '../../data/protocols/db/log-error-repository'
-import { LogControllerDecorator } from './log'
-import { AccountModel } from '../../domain/models/account'
+} from '../../../presentation/protocols'
+import { ok, serverError } from '../../../presentation/helpers'
+import { LogErrorRepository } from '../../../data/protocols/db/log/log-error-repository'
+import { LogControllerDecorator } from './log-controller-decorator'
+import { AccountModel } from '../../../domain/models/account'
 
 interface MakeSutTypes {
   sut: LogControllerDecorator

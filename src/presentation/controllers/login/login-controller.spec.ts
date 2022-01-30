@@ -4,14 +4,14 @@ import {
   HttpRequest,
   HttpResponse,
   AuthenticationModel
-} from './login-protocols'
+} from './login-controller-protocols'
 import {
   badRequest,
   ok,
   serverError,
   unauthorized
 } from '../../helpers'
-import { LoginController } from './login'
+import { LoginController } from './login-controller'
 
 interface MakeSutTypes {
   sut: LoginController

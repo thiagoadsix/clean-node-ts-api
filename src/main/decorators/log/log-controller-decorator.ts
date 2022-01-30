@@ -2,8 +2,8 @@ import {
   Controller,
   HttpRequest,
   HttpResponse
-} from '../../presentation/protocols'
-import { LogErrorRepository } from '../../data/protocols/db/log-error-repository'
+} from '../../../presentation/protocols'
+import { LogErrorRepository } from '../../../data/protocols/db/log/log-error-repository'
 
 // We are using composition instead heritage
 export class LogControllerDecorator implements Controller {
