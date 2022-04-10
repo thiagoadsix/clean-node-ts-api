@@ -10,5 +10,5 @@ services:
       - 9222:9222
     command: bash -c "npm i --only=prod && npm run debug"
     volumes:
-      - ./dist:/usr/clean-node-ts-api/dist
+      - ./dist/:/usr/clean-node-ts-api/dist/
       - ./package.json:/usr/clean-node-ts-api/package.json
