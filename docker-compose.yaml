@@ -1,0 +1,12 @@
+version: '3'
+services:
+  api:
+    image: clean-node-ts-api
+    container_name: api-container
+    build: .
+    restart: always
+    ports:
+      - 5050:5050
+    command: npm start
+    volumes:
+      - ./dist:/usr/clean-node-ts-api/dist
