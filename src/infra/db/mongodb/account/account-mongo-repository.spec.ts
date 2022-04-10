@@ -51,10 +51,10 @@ describe('Account MongoDB Repository', () => {
     const account = await sut.loadByEmail('email@example.com')
 
     expect(account).toBeTruthy()
-    expect(account!.id).toBeTruthy()
-    expect(account!.name).toBe('name')
-    expect(account!.email).toBe('email@example.com')
-    expect(account!.password).toBe('password')
+    expect(account.id).toBeTruthy()
+    expect(account.name).toBe('name')
+    expect(account.email).toBe('email@example.com')
+    expect(account.password).toBe('password')
   })
 
   test('should return null if loadByEmail fails', async () => {
@@ -78,6 +78,6 @@ describe('Account MongoDB Repository', () => {
     await sut.updateAccessToken(accountMapped.id, 'any_token')
     const accountFound = await accountCollection.findOne({ _id: accountMapped.id })
     expect(accountFound).toBeTruthy()
-    expect(accountFound!.accessToken).toBe('any_token')
+    expect(accountFound.accessToken).toBe('any_token')
   })
 })
