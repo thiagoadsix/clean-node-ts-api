@@ -1,14 +1,14 @@
 version: '3'
 services:
   api:
-    image: clean-node-ts-api
+    image: node:14
     container_name: api-container
-    build: .
+    working_dir: /usr/clean-node-ts-api
     restart: always
     ports:
       - 5050:5050
       - 9222:9222
-    command: npm run debug
+    command: bash -c "npm i --only=prod && npm run debug"
     volumes:
       - ./dist:/usr/clean-node-ts-api/dist
       - ./package.json:/usr/clean-node-ts-api/package.json
