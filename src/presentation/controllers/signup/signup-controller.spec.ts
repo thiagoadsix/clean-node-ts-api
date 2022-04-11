@@ -9,11 +9,12 @@ import {
   HttpResponse,
   Validation
 } from './signup-controller-protocols'
-import { ServerError } from '../../errors'
+import { EmailInUseError, ServerError } from '../../errors'
 import {
   ok,
   badRequest,
-  serverError
+  serverError,
+  forbidden
 } from '../../helpers'
 
 const makeAddAccount = (): AddAccount => {
@@ -108,6 +109,13 @@ describe('SignUp Controller', () => {
     const httpRequest = makeFakeAccountRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new ServerError()))
+  })
+
+  test('should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise((resolve) => resolve(null)))
+    const httpResponse = await sut.handle(makeFakeAccountRequest())
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
   })
 
   test('should return 200 if valid data is provided', async () => {
