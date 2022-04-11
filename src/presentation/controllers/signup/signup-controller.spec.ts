@@ -6,6 +6,7 @@ import {
   Authentication,
   AuthenticationModel,
   HttpRequest,
+  HttpResponse,
   Validation
 } from './signup-controller-protocols'
 import { ServerError } from '../../errors'
@@ -135,5 +136,13 @@ describe('SignUp Controller', () => {
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeFakeAccountRequest())
     expect(authSpy).toHaveBeenCalledWith({ email: 'email@example.com', password: 'password' })
+  })
+
+  test('should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    // Will replace all implementation of the method
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    const httpResponse: HttpResponse = await sut.handle(makeFakeAccountRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
