@@ -1,5 +1,6 @@
 import {
   AddAccount,
+  Authentication,
   Controller,
   HttpRequest,
   HttpResponse,
@@ -14,10 +15,12 @@ import {
 export class SignUpController implements Controller {
   constructor (
     private readonly addAccount: AddAccount,
-    private readonly validation: Validation
+    private readonly validation: Validation,
+    private readonly authentication: Authentication
   ) {
     this.addAccount = addAccount
     this.validation = validation
+    this.authentication = authentication
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -31,6 +34,8 @@ export class SignUpController implements Controller {
       const { name, email, password } = httpRequest.body
 
       const account = await this.addAccount.add({ name, email, password })
+
+      await this.authentication.auth({ email, password })
 
       return ok(account)
     } catch (error) {
