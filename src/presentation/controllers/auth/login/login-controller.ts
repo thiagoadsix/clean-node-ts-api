@@ -3,7 +3,7 @@ import {
   ok,
   serverError,
   unauthorized
-} from '../../helpers'
+} from '../../../helpers'
 import {
   Authentication,
   Validation,

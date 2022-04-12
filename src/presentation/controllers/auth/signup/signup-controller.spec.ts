@@ -9,13 +9,13 @@ import {
   HttpResponse,
   Validation
 } from './signup-controller-protocols'
-import { EmailInUseError, ServerError } from '../../errors'
+import { EmailInUseError, ServerError } from '../../../errors'
 import {
   ok,
   badRequest,
   serverError,
   forbidden
-} from '../../helpers'
+} from '../../../helpers'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
