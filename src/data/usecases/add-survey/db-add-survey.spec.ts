@@ -43,4 +43,15 @@ describe('DbAddSurvey Usecase', () => {
     await sut.add(surveyData)
     expect(addSurveySpy).toHaveBeenCalledWith(surveyData)
   })
+
+  test('should throw if AddSurveyRepository throws', async () => {
+    const { sut, addSurveyRepositoryStub } = makeSut()
+    // Dependency is returning a exception
+    jest.spyOn(addSurveyRepositoryStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+
+    // Remove the await here
+    const promise = sut.add(makeFakeSurveyData())
+    // To catch the error here
+    await expect(promise).rejects.toThrow()
+  })
 })
