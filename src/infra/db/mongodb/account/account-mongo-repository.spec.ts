@@ -127,10 +127,10 @@ describe('Account MongoDB Repository', () => {
       expect(account.password).toBe('password')
     })
 
-    test.skip('should return null if loadByEmail fails', async () => {
+    test('should return null if loadByToken fails', async () => {
       const sut = makeSut()
 
-      const account = await sut.loadByEmail('email@example.com')
+      const account = await sut.loadByToken('any token')
 
       expect(account).toBeFalsy()
     })
