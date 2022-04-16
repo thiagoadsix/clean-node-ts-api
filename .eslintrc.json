@@ -12,6 +12,7 @@
     "@typescript-eslint/method-signature-style": "off",
     "@typescript-eslint/return-await": "off",
     "node/no-path-concat": "off",
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-base-to-string": "off"
   }
 }
