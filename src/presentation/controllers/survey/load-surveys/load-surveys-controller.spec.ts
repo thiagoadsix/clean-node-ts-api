@@ -1,7 +1,7 @@
 import MockDate from 'mockdate'
 
 import { LoadSurveysController } from './load-surveys-controller'
-import { LoadSurveys, SurveyModel } from './load-surveys-controller-protocols'
+import { LoadSurveys, ok, SurveyModel } from './load-surveys-controller-protocols'
 
 interface SutTypes {
   sut: LoadSurveysController
@@ -51,5 +51,11 @@ describe('Load Surveys Controller', () => {
     const loadSpy = jest.spyOn(loadSurveysStub, 'load')
     sut.handle({})
     expect(loadSpy).toHaveBeenCalled()
+  })
+
+  test('should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({})
+    expect(httpResponse).toEqual(ok(makeFakeSurveysResponse()))
   })
 })
