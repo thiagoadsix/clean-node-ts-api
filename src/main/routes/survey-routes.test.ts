@@ -22,7 +22,7 @@ describe('Survey Routes', () => {
   })
 
   describe('POST /surveys', () => {
-    test('should return 204 on create a survey on success', async () => {
+    test.skip('should return 204 on create a survey on success', async () => {
       await request(app)
         .post('/api/surveys')
         .send({
@@ -35,6 +35,21 @@ describe('Survey Routes', () => {
           }]
         })
         .expect(204)
+    })
+
+    test('should return 403 on create a survey without x-access-token', async () => {
+      await request(app)
+        .post('/api/surveys')
+        .send({
+          question: 'any question',
+          answers: [{
+            image: 'any image',
+            answer: 'any answer'
+          }, {
+            answer: 'any other answer'
+          }]
+        })
+        .expect(403)
     })
   })
 })
