@@ -79,4 +79,48 @@ describe('Survey Routes', () => {
         .expect(403)
     })
   })
+
+  describe('GET /surveys', () => {
+    test('should return 403 on load surveys without x-access-token', async () => {
+      await request(app)
+        .get('/api/surveys')
+        .expect(403)
+    })
+
+    test.skip('should return 204 on create a survey with valid token', async () => {
+      const password = await hash('123456789', 12)
+      const result = await accountCollection.insertOne({
+        name: 'Some Name',
+        email: 'some@example.com',
+        password,
+        role: 'admin'
+      })
+      const account = await accountCollection.findOne(result.insertedId)
+      const accountId = account._id
+      const accessToken = sign({ id: accountId }, env.jwtSecret)
+      await accountCollection.updateOne(
+        { _id: accountId }
+        ,
+        {
+          $set: {
+            accessToken
+          }
+        }
+      )
+
+      await request(app)
+        .post('/api/surveys')
+        .set('x-access-token', accessToken)
+        .send({
+          question: 'any question',
+          answers: [{
+            image: 'any image',
+            answer: 'any answer'
+          }, {
+            answer: 'any other answer'
+          }]
+        })
+        .expect(204)
+    })
+  })
 })
