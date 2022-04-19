@@ -87,13 +87,12 @@ describe('Survey Routes', () => {
         .expect(403)
     })
 
-    test.skip('should return 204 on create a survey with valid token', async () => {
+    test('should return 200 on load a surveys with valid token', async () => {
       const password = await hash('123456789', 12)
       const result = await accountCollection.insertOne({
         name: 'Some Name',
         email: 'some@example.com',
-        password,
-        role: 'admin'
+        password
       })
       const account = await accountCollection.findOne(result.insertedId)
       const accountId = account._id
@@ -107,20 +106,18 @@ describe('Survey Routes', () => {
           }
         }
       )
+      await surveyCollection.insertOne({
+        question: 'any question',
+        answers: [{
+          image: 'any image',
+          answer: 'any answer'
+        }]
+      })
 
       await request(app)
-        .post('/api/surveys')
+        .get('/api/surveys')
         .set('x-access-token', accessToken)
-        .send({
-          question: 'any question',
-          answers: [{
-            image: 'any image',
-            answer: 'any answer'
-          }, {
-            answer: 'any other answer'
-          }]
-        })
-        .expect(204)
+        .expect(200)
     })
   })
 })
