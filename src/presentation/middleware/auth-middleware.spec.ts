@@ -13,7 +13,7 @@ import {
 
 import { AuthMiddleware } from './auth-middleware'
 
-interface SutTypes {
+type SutTypes = {
   sut: AuthMiddleware
   loadAccountByTokenStub: LoadAccountByToken
 }

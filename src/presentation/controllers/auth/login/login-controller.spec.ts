@@ -15,7 +15,7 @@ import {
 
 import { LoginController } from './login-controller'
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: LoginController
   authenticationStub: Authentication
   validationStub: Validation

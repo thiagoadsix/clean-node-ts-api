@@ -11,7 +11,7 @@ import { ok, serverError } from '@/presentation/helpers'
 
 import { LogControllerDecorator } from './log-controller-decorator'
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: LogControllerDecorator
   controllerStub: Controller
   logErrorRepositoryStub: LogErrorRepository

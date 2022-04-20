@@ -10,7 +10,7 @@ import {
 
 import { LoadSurveysController } from './load-surveys-controller'
 
-interface SutTypes {
+type SutTypes = {
   sut: LoadSurveysController
   loadSurveysStub: LoadSurveys
 }

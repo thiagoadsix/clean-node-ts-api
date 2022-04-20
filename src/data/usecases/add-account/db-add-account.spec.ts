@@ -8,7 +8,7 @@ import {
 
 import { DbAddAccount } from './db-add-account'
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: DbAddAccount
   hasherStub: Hasher
   addAccountRepositoryStub: AddAccountRepository

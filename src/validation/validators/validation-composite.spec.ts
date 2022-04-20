@@ -3,7 +3,7 @@ import { Validation } from '@/presentation/protocols'
 
 import { ValidationComposite } from './validation-composite'
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: ValidationComposite
   validationStubs: Validation[]
 }

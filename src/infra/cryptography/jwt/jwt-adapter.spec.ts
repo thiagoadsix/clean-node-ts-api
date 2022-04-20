@@ -11,7 +11,7 @@ jest.mock('jsonwebtoken', () => ({
   }
 }))
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: JwtAdapter
 }
 
