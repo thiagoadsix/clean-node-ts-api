@@ -1,6 +1,7 @@
 import { Collection } from 'mongodb'
 
-import { MongoHelper } from '../../helpers/mongo-helper'
+import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
+
 import { AccountMongoRepository } from './account-mongo-repository'
 import { AccountMapper } from './account-mongo-repository-mapper'
 

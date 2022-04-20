@@ -1,8 +1,17 @@
-import { forbidden, ok, serverError } from '../helpers'
-import { AccessDeniedError } from '../errors'
+import {
+  forbidden,
+  ok,
+  serverError
+} from '@/presentation/helpers'
+import { AccessDeniedError } from '@/presentation/errors'
+
+import {
+  AccountModel,
+  LoadAccountByToken,
+  HttpRequest
+} from './auth-middleware-protocols'
 
 import { AuthMiddleware } from './auth-middleware'
-import { AccountModel, LoadAccountByToken, HttpRequest } from './auth-middleware-protocols'
 
 interface SutTypes {
   sut: AuthMiddleware

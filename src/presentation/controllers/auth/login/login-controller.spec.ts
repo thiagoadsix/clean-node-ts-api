@@ -1,16 +1,18 @@
 import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized
+} from '@/presentation/helpers'
+
+import {
   Authentication,
   Validation,
   HttpRequest,
   HttpResponse,
   AuthenticationModel
 } from './login-controller-protocols'
-import {
-  badRequest,
-  ok,
-  serverError,
-  unauthorized
-} from '../../../helpers'
+
 import { LoginController } from './login-controller'
 
 interface MakeSutTypes {

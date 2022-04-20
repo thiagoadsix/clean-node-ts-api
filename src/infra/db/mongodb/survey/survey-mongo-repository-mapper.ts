@@ -1,4 +1,4 @@
-import { SurveyModel } from '../../../../domain/models/survey'
+import { SurveyModel } from './survey-mongo-repository-protocols'
 
 export const SurveyMapper = {
   surveysMongoToSurveysModel (surveys: any[]): SurveyModel[] {

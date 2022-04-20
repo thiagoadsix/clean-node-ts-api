@@ -6,6 +6,7 @@ import {
   Encrypter,
   UpdateAccessTokenRepository
 } from './db-authentication-protocols'
+
 import { DbAuthentication } from './db-authentication'
 
 interface MakeSutTypes {

@@ -22,5 +22,9 @@ export default {
   // The test environment that will be used for testing
   testEnvironment: 'node',
   // To run MongoDB in memory
-  preset: '@shelf/jest-mongodb'
+  preset: '@shelf/jest-mongodb',
+  // Mapper to the custom paths
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/$1'
+  }
 }

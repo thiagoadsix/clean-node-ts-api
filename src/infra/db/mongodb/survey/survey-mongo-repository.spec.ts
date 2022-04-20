@@ -1,7 +1,8 @@
 import { Collection } from 'mongodb'
 import MockDate from 'mockdate'
 
-import { MongoHelper } from '../../helpers/mongo-helper'
+import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
+
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
 let surveyCollection: Collection

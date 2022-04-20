@@ -1,12 +1,15 @@
+import { AccountModel } from '@/domain/models/account'
+
+import { LogErrorRepository } from '@/data/protocols/db/log/log-error-repository'
+
 import {
   Controller,
   HttpRequest,
   HttpResponse
-} from '../../../presentation/protocols'
-import { ok, serverError } from '../../../presentation/helpers'
-import { LogErrorRepository } from '../../../data/protocols/db/log/log-error-repository'
+} from '@/presentation/protocols'
+import { ok, serverError } from '@/presentation/helpers'
+
 import { LogControllerDecorator } from './log-controller-decorator'
-import { AccountModel } from '../../../domain/models/account'
 
 interface MakeSutTypes {
   sut: LogControllerDecorator

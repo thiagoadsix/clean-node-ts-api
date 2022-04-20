@@ -1,7 +1,16 @@
 import MockDate from 'mockdate'
 
+import {
+  AddSurvey,
+  AddSurveyModel,
+  badRequest,
+  HttpRequest,
+  noContent,
+  serverError,
+  Validation
+} from './add-survey-controller-protocols'
+
 import { AddSurveyController } from './add-survey-controller'
-import { AddSurvey, AddSurveyModel, badRequest, HttpRequest, noContent, serverError, Validation } from './add-survey-controller-protocols'
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
