@@ -9,7 +9,7 @@ import {
 
 import { DbAuthentication } from './db-authentication'
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashComparerStub: HashComparer

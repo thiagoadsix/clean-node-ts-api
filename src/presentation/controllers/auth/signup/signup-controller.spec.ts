@@ -68,7 +68,7 @@ const makeFakeAccountResponse = (): AccountModel => ({
   password: 'password'
 })
 
-interface MakeSutTypes {
+type MakeSutTypes = {
   sut: SignUpController
   addAccountStub: AddAccount
   validationStub: Validation

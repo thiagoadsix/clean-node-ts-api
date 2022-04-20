@@ -7,7 +7,7 @@ import {
 
 import { DbLoadSurveys } from './db-load-surveys'
 
-interface SutTypes {
+type SutTypes = {
   sut: DbLoadSurveys
   loadSurveysRepository: LoadSurveysRepository
 }
