@@ -64,4 +64,15 @@ describe('DbSaveSurveyResult Usecase', () => {
     await sut.save(surveyData)
     expect(saveSpy).toHaveBeenCalledWith(surveyData)
   })
+
+  test('should throw if SaveSurveyResultRepository throws', async () => {
+    const { sut, saveSurveyResultRepositoryStub } = makeSut()
+    // Dependency is returning a exception
+    jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+
+    // Remove the await here
+    const promise = sut.save(makeFakeSaveSurveyRequestData())
+    // To catch the error here
+    await expect(promise).rejects.toThrow()
+  })
 })
