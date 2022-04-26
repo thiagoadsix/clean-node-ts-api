@@ -1,6 +1,6 @@
 import env from '@/main/config/env'
 
-import { Authentication } from '@/domain/usecases/authentication'
+import { Authentication } from '@/domain/usecases/account/authentication'
 
 import { DbAuthentication } from '@/data/usecases/authentication/db-authentication'
 
