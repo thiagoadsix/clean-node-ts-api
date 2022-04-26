@@ -8,7 +8,10 @@ import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import { SurveyMapper } from '../survey/survey-mongo-repository-mapper'
 import { AccountMapper } from '../account/account-mongo-repository-mapper'
 
-import { AccountModel, SurveyModel } from './survey-result-mongo-repository-protocols'
+import {
+  AccountModel,
+  SurveyModel
+} from './survey-result-mongo-repository-protocols'
 
 let surveyResultCollection: Collection
 let surveyCollection: Collection
@@ -77,6 +80,27 @@ describe('Survey Result MongoDB Repository', () => {
       expect(surveyResult).toBeTruthy()
       expect(surveyResult.id).toBeTruthy()
       expect(surveyResult.answer).toBe(survey.answers[0].answer)
+    })
+
+    test('should update a survey result if its not new', async () => {
+      const survey = await makeSurvey()
+      const account = await makeAccount()
+      const sut = makeSut()
+      const resp = await surveyResultCollection.insertOne({
+        accountId: account.id,
+        surveyId: survey.id,
+        answer: survey.answers[0].answer,
+        date: new Date()
+      })
+      const surveyResultFound = await surveyResultCollection.findOne({ _id: resp.insertedId })
+      const surveyResult = await sut.save({
+        accountId: account.id,
+        surveyId: survey.id,
+        answer: survey.answers[0].answer,
+        date: new Date()
+      })
+      expect(surveyResult.id).toEqual(surveyResultFound._id)
+      expect(surveyResult.answer).toEqual(survey.answers[0].answer)
     })
   })
 })
