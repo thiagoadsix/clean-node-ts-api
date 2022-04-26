@@ -8,5 +8,13 @@ export const SurveyMapper = {
       answers: survey.answers,
       date: survey.date
     }))
+  },
+  surveyMongoToSurveyModel (survey: any): SurveyModel {
+    return {
+      id: survey._id,
+      question: survey.question,
+      answers: survey.answers,
+      date: survey.date
+    }
   }
 }
