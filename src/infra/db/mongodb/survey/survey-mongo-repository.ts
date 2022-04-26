@@ -5,12 +5,12 @@ import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
 import {
   AddSurveyModel,
   AddSurveyRepository,
+  LoadSurveyByIdRepository,
   LoadSurveysRepository,
   SurveyModel
 } from './survey-mongo-repository-protocols'
 
 import { SurveyMapper } from './survey-mongo-repository-mapper'
-import { LoadSurveyByIdRepository } from '@/data/usecases/load-survey-by-id/db-load-survey-by-id-protocols'
 
 export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveysRepository, LoadSurveyByIdRepository {
   async loadById (id: string): Promise<SurveyModel> {
