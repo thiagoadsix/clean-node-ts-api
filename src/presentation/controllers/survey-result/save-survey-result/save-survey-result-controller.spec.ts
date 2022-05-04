@@ -9,6 +9,9 @@ import { forbidden, HttpRequest, LoadSurveyById, serverError, SurveyModel } from
 const makeFakeRequest = (): HttpRequest => ({
   params: {
     surveyId: 'any id'
+  },
+  body: {
+    answer: 'any answer'
   }
 })
 
@@ -75,5 +78,18 @@ describe('SaveSurveyResult Controller', () => {
     jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(new Promise((resolve, reject) => reject(serverError(new Error()))))
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('should return 403 if an invalid answer is provided', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({
+      params: {
+        surveyId: 'any id'
+      },
+      body: {
+        answer: 'wrong answer'
+      }
+    })
+    expect(httpResponse).toEqual(forbidden(new InvalidParamError('answer')))
   })
 })
