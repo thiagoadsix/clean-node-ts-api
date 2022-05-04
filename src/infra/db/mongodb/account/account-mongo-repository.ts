@@ -2,7 +2,7 @@ import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
 
 import {
   AccountModel,
-  AddAccountModel,
+  AddAccountParams,
   AddAccountRepository,
   LoadAccountByEmailRepository,
   LoadAccountByTokenRepository,
@@ -29,7 +29,7 @@ export class AccountMongoRepository implements
     return account && AccountMapper.accountMongoToAccountModel(account)
   }
 
-  async add (accountData: AddAccountModel): Promise<AccountModel> {
+  async add (accountData: AddAccountParams): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(accountData)
     const account = await accountCollection.findOne(result.insertedId)

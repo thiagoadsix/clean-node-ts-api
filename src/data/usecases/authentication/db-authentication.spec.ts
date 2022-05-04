@@ -1,6 +1,6 @@
 import {
   AccountModel,
-  AuthenticationModel,
+  AuthenticationParams,
   HashComparer,
   LoadAccountByEmailRepository,
   Encrypter,
@@ -85,7 +85,7 @@ const makeFakeResponse = (): AccountModel => ({
   password: 'hashed_password'
 })
 
-const makeFakeRequest = (): AuthenticationModel => ({
+const makeFakeRequest = (): AuthenticationParams => ({
   email: 'email@example.com',
   password: 'password'
 })

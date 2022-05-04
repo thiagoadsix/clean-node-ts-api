@@ -1,6 +1,6 @@
 import {
   AccountModel,
-  AddAccountModel,
+  AddAccountParams,
   Hasher,
   AddAccountRepository,
   LoadAccountByEmailRepository
@@ -41,7 +41,7 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountParams): Promise<AccountModel> {
       return await new Promise<AccountModel>((resolve) => resolve(makeFakeAccountResponse()))
     }
   }
@@ -66,7 +66,7 @@ const makeFakeAccountResponse = (): AccountModel => ({
   password: 'hashed_password'
 })
 
-const makeFakeAccountData = (): AddAccountModel => ({
+const makeFakeAccountData = (): AddAccountParams => ({
   name: 'name',
   email: 'email@example.com',
   password: 'password'

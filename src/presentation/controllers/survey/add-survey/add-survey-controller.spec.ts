@@ -2,7 +2,7 @@ import MockDate from 'mockdate'
 
 import {
   AddSurvey,
-  AddSurveyModel,
+  AddSurveyParams,
   badRequest,
   HttpRequest,
   noContent,
@@ -24,7 +24,7 @@ const makeValidation = (): Validation => {
 
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    async add (data: AddSurveyModel): Promise<void> {
+    async add (data: AddSurveyParams): Promise<void> {
       return new Promise<void>((resolve) => resolve())
     }
   }

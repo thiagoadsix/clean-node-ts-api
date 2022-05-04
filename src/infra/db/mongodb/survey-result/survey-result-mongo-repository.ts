@@ -2,7 +2,7 @@
 import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
 
 import {
-  SaveSurveyResultModel,
+  SaveSurveyResultParams,
   SaveSurveyResultRepository,
   SurveyResultModel
 } from './survey-result-mongo-repository-protocols'
@@ -10,7 +10,7 @@ import {
 import { SurveyResultMapper } from './survey-result-mongo-repository-mapper'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
-  async save (surveyData: SaveSurveyResultModel): Promise<SurveyResultModel> {
+  async save (surveyData: SaveSurveyResultParams): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     const surveyResult = await surveyResultCollection.findOneAndUpdate({
       surveyId: surveyData.surveyId,

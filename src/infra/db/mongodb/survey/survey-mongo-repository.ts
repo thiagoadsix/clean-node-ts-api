@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
 
 import {
-  AddSurveyModel,
+  AddSurveyParams,
   AddSurveyRepository,
   LoadSurveyByIdRepository,
   LoadSurveysRepository,
@@ -25,7 +25,7 @@ export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveysRe
     return SurveyMapper.surveysMongoToSurveysModel(surveys)
   }
 
-  async add (surveyData: AddSurveyModel): Promise<void> {
+  async add (surveyData: AddSurveyParams): Promise<void> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     await surveyCollection.insertOne(surveyData)
   }
