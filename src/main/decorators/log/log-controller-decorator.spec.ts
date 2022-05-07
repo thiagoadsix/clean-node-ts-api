@@ -72,7 +72,7 @@ describe('LogController Decorator', () => {
   test('should call LogErrorRepository with correct error if controller return a server error', async () => {
     const { sut, controllerStub, logErrorRepositoryStub } = makeSut()
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
-    jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise((resolve) => resolve(makeServerError())))
+    jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(Promise.resolve(makeServerError()))
     await sut.handle(makeFakeAccountRequest())
     expect(logSpy).toHaveBeenCalledWith('any-stack')
   })

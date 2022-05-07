@@ -74,7 +74,7 @@ describe('Add Survey Controller', () => {
 
   test('should return 500 if AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut()
-    jest.spyOn(addSurveyStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(serverError(new Error()))))
+    jest.spyOn(addSurveyStub, 'add').mockReturnValueOnce(Promise.reject(serverError(new Error())))
     const httpResponse = await sut.handle(mockAddSurveyRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
   })
