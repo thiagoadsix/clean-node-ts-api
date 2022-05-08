@@ -26,9 +26,11 @@ const makeSurvey = async (): Promise<SurveyModel> => {
     question: 'any question',
     answers: [{
       image: 'any image',
-      answer: 'any answer'
+      answer: 'any answer 1'
     }, {
-      answer: 'other answer'
+      answer: 'other answer 2'
+    }, {
+      answer: 'other answer 3'
     }],
     date: new Date()
   })
@@ -111,6 +113,49 @@ describe('Survey Result MongoDB Repository', () => {
       expect(surveyResult.answers[0].percent).toBe(100)
       expect(surveyResult.answers[1].count).toBe(0)
       expect(surveyResult.answers[1].percent).toBe(0)
+    })
+  })
+
+  describe('loadBySurveyId()', () => {
+    test('should load a survey result with correct value', async () => {
+      const survey = await makeSurvey()
+      const account = await makeAccount()
+      const sut = makeSut()
+      await surveyResultCollection.insertMany([
+        {
+          accountId: new ObjectId(account.id),
+          surveyId: new ObjectId(survey.id),
+          answer: survey.answers[0].answer,
+          date: new Date()
+        },
+        {
+          accountId: new ObjectId(account.id),
+          surveyId: new ObjectId(survey.id),
+          answer: survey.answers[0].answer,
+          date: new Date()
+        },
+        {
+          accountId: new ObjectId(account.id),
+          surveyId: new ObjectId(survey.id),
+          answer: survey.answers[1].answer,
+          date: new Date()
+        },
+        {
+          accountId: new ObjectId(account.id),
+          surveyId: new ObjectId(survey.id),
+          answer: survey.answers[1].answer,
+          date: new Date()
+        }
+      ])
+      const surveyResult = await sut.loadBySurveyId(survey.id)
+      expect(surveyResult).toBeTruthy()
+      expect(surveyResult.surveyId).toEqual(survey.id)
+      expect(surveyResult.answers[0].count).toBe(2)
+      expect(surveyResult.answers[0].percent).toBe(50)
+      expect(surveyResult.answers[1].count).toBe(2)
+      expect(surveyResult.answers[1].percent).toBe(50)
+      expect(surveyResult.answers[2].count).toBe(0)
+      expect(surveyResult.answers[2].percent).toBe(0)
     })
   })
 })
