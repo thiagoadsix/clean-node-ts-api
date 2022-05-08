@@ -1,4 +1,4 @@
-import { Collection } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 import MockDate from 'mockdate'
 
 import { MongoHelper } from '@/infra/db/helpers/mongo-helper'
@@ -69,6 +69,7 @@ describe('Survey Result MongoDB Repository', () => {
   describe('save()', () => {
     test('should save a survey result if its new', async () => {
       const survey = await makeSurvey()
+      console.log({ survey })
       const account = await makeAccount()
       const sut = makeSut()
       const surveyResult = await sut.save({
@@ -77,30 +78,35 @@ describe('Survey Result MongoDB Repository', () => {
         answer: survey.answers[0].answer,
         date: new Date()
       })
+      console.log({ surveyResult })
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toBeTruthy()
-      expect(surveyResult.answer).toBe(survey.answers[0].answer)
+      expect(surveyResult.surveyId).toEqual(survey.id)
+      expect(surveyResult.answers[0].answer).toEqual(survey.answers[0].answer)
+      expect(surveyResult.answers[0].count).toBe(1)
+      expect(surveyResult.answers[0].percent).toBe(100)
     })
 
     test('should update a survey result if its not new', async () => {
       const survey = await makeSurvey()
       const account = await makeAccount()
       const sut = makeSut()
-      const resp = await surveyResultCollection.insertOne({
-        accountId: account.id,
-        surveyId: survey.id,
+      await surveyResultCollection.insertOne({
+        accountId: new ObjectId(account.id),
+        surveyId: new ObjectId(survey.id),
         answer: survey.answers[0].answer,
         date: new Date()
       })
-      const surveyResultFound = await surveyResultCollection.findOne({ _id: resp.insertedId })
       const surveyResult = await sut.save({
         accountId: account.id,
         surveyId: survey.id,
-        answer: survey.answers[0].answer,
+        answer: survey.answers[1].answer,
         date: new Date()
       })
-      expect(surveyResult.id).toEqual(surveyResultFound._id)
-      expect(surveyResult.answer).toEqual(survey.answers[0].answer)
+      expect(surveyResult).toBeTruthy()
+      expect(surveyResult.surveyId).toEqual(survey.id)
+      expect(surveyResult.answers[0].answer).toEqual(survey.answers[1].answer)
+      expect(surveyResult.answers[0].count).toBe(1)
+      expect(surveyResult.answers[0].percent).toBe(100)
     })
   })
 })
