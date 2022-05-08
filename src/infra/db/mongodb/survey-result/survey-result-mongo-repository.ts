@@ -10,9 +10,9 @@ import {
 } from './survey-result-mongo-repository-protocols'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
-  async save (surveyData: SaveSurveyResultParams): Promise<SurveyResultModel> {
+  async save (surveyData: SaveSurveyResultParams): Promise<void> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
-    const surveyUpdated = await surveyResultCollection.findOneAndUpdate({
+    await surveyResultCollection.findOneAndUpdate({
       surveyId: new ObjectId(surveyData.surveyId),
       accountId: new ObjectId(surveyData.accountId)
     }, {
@@ -21,12 +21,8 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
         date: surveyData.date
       }
     }, {
-      upsert: true,
-      returnDocument: 'after'
+      upsert: true
     })
-    const surveyFound = await surveyResultCollection.findOne({ _id: surveyUpdated.value._id })
-    const surveyResult = await this.loadBySurveyId(surveyFound.surveyId)
-    return surveyResult
   }
 
   async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
