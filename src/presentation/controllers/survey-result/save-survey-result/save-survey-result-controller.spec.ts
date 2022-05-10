@@ -10,12 +10,12 @@ import { mockLoadSurveyById, mockSaveSurveyResult } from '@/presentation/test'
 
 const mockLoadSurveyByIdRequest = (): HttpRequest => ({
   params: {
-    surveyId: 'any id'
+    surveyId: 'any_id'
   },
   body: {
-    answer: 'any answer'
+    answer: 'any_answer'
   },
-  accountId: 'any account id'
+  accountId: 'any_account_id'
 })
 
 type SutTypes = {
@@ -84,9 +84,9 @@ describe('SaveSurveyResult Controller', () => {
     const saveSpy = jest.spyOn(saveSurveyResultStub, 'save')
     await sut.handle(mockLoadSurveyByIdRequest())
     expect(saveSpy).toHaveBeenCalledWith({
-      surveyId: 'any id',
-      accountId: 'any account id',
-      answer: 'any answer',
+      surveyId: 'any_id',
+      accountId: 'any_account_id',
+      answer: 'any_answer',
       date: new Date()
     })
   })
