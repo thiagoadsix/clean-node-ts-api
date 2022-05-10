@@ -11,13 +11,13 @@ const mockSaveSurveyRequest = (): SaveSurveyResultParams => ({
 const mockSaveSurveyResponse = (): SurveyResultModel => ({
   question: 'any_question',
   answers: [{
-    answer: 'any answer',
-    count: 1,
-    percent: 50,
+    answer: 'any_answer',
+    count: 0,
+    percent: 0,
     image: 'any_image'
 
   }],
-  surveyId: 'any_survey_id',
+  surveyId: 'any_id',
   date: new Date()
 })
 

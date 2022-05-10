@@ -11,11 +11,11 @@ const mockSurveyRequest = (): AddSurveyParams => ({
 })
 
 const mockSurveyResponse = (): SurveyModel => ({
-  id: 'any id',
-  question: 'any question',
+  id: 'any_id',
+  question: 'any_question',
   answers: [{
-    answer: 'any answer',
-    image: 'any image'
+    answer: 'any_answer',
+    image: 'any_image'
   }],
   date: new Date()
 })

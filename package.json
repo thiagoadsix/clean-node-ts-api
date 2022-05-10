@@ -9,7 +9,7 @@
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "up": "npm run build && docker-compose up",
     "down": "docker-compose down",
-    "test": "jest --passWithNoTests --runInBand",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:ci": "npm test -- --coverage",
     "test:clear": "jest --clearCache",
     "test:staged": "npm test -- --findRelatedTests",
