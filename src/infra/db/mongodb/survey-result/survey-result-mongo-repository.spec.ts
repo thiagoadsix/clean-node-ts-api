@@ -115,6 +115,16 @@ describe('Survey Result MongoDB Repository', () => {
   })
 
   describe('loadBySurveyId()', () => {
+    /*
+      Must be created a implementation where is the LoadSurveyById could return an empty array
+    */
+    test.skip('should return null if there is no survey result', async () => {
+      const survey = await makeSurvey()
+      const sut = makeSut()
+      const surveyResult = sut.loadBySurveyId(survey.id)
+      expect(surveyResult).toBe(null)
+    })
+
     test('should load a survey result with correct value', async () => {
       const survey = await makeSurvey()
       const account = await makeAccount()
