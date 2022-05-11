@@ -3,10 +3,10 @@ import MockDate from 'mockdate'
 import { InvalidParamError } from '@/presentation/errors'
 import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/test'
 
-import { forbidden, HttpRequest, LoadSurveyById, LoadSurveyResult, serverError } from './load-survey-result-controller-protocols'
+import { forbidden, HttpRequest, LoadSurveyById, LoadSurveyResult, ok, serverError } from './load-survey-result-controller-protocols'
 
 import { LoadSurveyResultController } from './load-survey-result-controller'
-import { throwError } from '@/domain/test'
+import { mockSaveSurveyResponse, throwError } from '@/domain/test'
 
 const mockLoadSurveyResultRequest = (): HttpRequest => ({
   params: {
@@ -76,5 +76,11 @@ describe('LoadSurveyResult Controller', () => {
     jest.spyOn(loadSurveyResultStub, 'load').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle(mockLoadSurveyResultRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(mockLoadSurveyResultRequest())
+    expect(httpResponse).toEqual(ok(mockSaveSurveyResponse()))
   })
 })
