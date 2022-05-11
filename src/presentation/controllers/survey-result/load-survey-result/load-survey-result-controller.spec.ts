@@ -2,7 +2,7 @@ import MockDate from 'mockdate'
 
 import { mockLoadSurveyById } from '@/presentation/test'
 
-import { HttpRequest } from './load-survey-result-controller-protocols'
+import { HttpRequest, LoadSurveyById } from './load-survey-result-controller-protocols'
 
 import { LoadSurveyResultController } from './load-survey-result-controller'
 
@@ -11,6 +11,21 @@ const mockLoadSurveyResultRequest = (): HttpRequest => ({
     surveyId: 'any_id'
   }
 })
+
+type SutTypes = {
+  sut: LoadSurveyResultController
+  loadSurveyByIdStub: LoadSurveyById
+}
+
+const makeSut = (): SutTypes => {
+  const loadSurveyByIdStub = mockLoadSurveyById()
+  const sut = new LoadSurveyResultController(loadSurveyByIdStub)
+
+  return {
+    sut,
+    loadSurveyByIdStub
+  }
+}
 
 describe('LoadSurveyResult Controller', () => {
   beforeAll(() => {
@@ -22,8 +37,7 @@ describe('LoadSurveyResult Controller', () => {
   })
 
   test('should call LoadSurveyById with correct value', async () => {
-    const loadSurveyByIdStub = mockLoadSurveyById()
-    const sut = new LoadSurveyResultController(loadSurveyByIdStub)
+    const { sut, loadSurveyByIdStub } = makeSut()
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
     await sut.handle(mockLoadSurveyResultRequest())
     expect(loadByIdSpy).toHaveBeenCalledWith('any_id')
