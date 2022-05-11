@@ -71,9 +71,15 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
           $size: '$data.results'
         },
         percent: {
-          $multiply: [{
-            $divide: [{ $size: '$data.results' }, '$total']
-          }, 100]
+          $cond: [
+            { $eq: ['$total', 0] },
+            0,
+            {
+              $multiply: [{
+                $divide: [{ $size: '$data.results' }, '$total']
+              }, 100]
+            }
+          ]
         }
       })
       .sort({ count: -1 })

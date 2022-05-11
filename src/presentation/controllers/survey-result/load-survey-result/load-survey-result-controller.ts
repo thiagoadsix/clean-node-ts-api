@@ -24,6 +24,7 @@ export class LoadSurveyResultController implements Controller {
 
       return ok(surveyResult)
     } catch (error) {
+      console.error({ error })
       return serverError(error)
     }
   }
