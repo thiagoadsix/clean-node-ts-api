@@ -50,7 +50,7 @@ describe('Survey Routes', () => {
     await accountCollection.deleteMany({})
   })
 
-  describe('POST /surveys/:surveyId/results', () => {
+  describe('PUT /surveys/:surveyId/results', () => {
     test('should return 403 on save survey with out access', async () => {
       await request(app)
         .put('/api/surveys/any_id/results')
@@ -59,26 +59,34 @@ describe('Survey Routes', () => {
         })
         .expect(403)
     })
+
+    test('should return 200 on save survey with token', async () => {
+      const accessToken = await makeAccessToken()
+      const res = await surveyCollection.insertOne({
+        question: 'any question',
+        answers: [{
+          image: 'any image',
+          answer: 'any answer'
+        }, {
+          answer: 'any other answer'
+        }],
+        date: new Date()
+      })
+      await request(app)
+        .put(`/api/surveys/${res.insertedId.toString()}/results`)
+        .set('x-access-token', accessToken)
+        .send({
+          answer: 'any answer'
+        })
+        .expect(200)
+    })
   })
 
-  test('should return 200 on save survey with token', async () => {
-    const accessToken = await makeAccessToken()
-    const res = await surveyCollection.insertOne({
-      question: 'any question',
-      answers: [{
-        image: 'any image',
-        answer: 'any answer'
-      }, {
-        answer: 'any other answer'
-      }],
-      date: new Date()
+  describe('GET /surveys/:surveyId/results', () => {
+    test('should return 403 on load survey with out access', async () => {
+      await request(app)
+        .get('/api/surveys/any_id/results')
+        .expect(403)
     })
-    await request(app)
-      .put(`/api/surveys/${res.insertedId.toString()}/results`)
-      .set('x-access-token', accessToken)
-      .send({
-        answer: 'any answer'
-      })
-      .expect(200)
   })
 })
